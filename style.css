@@ -1,0 +1,679 @@
+/* =======================
+   CSS变量定义 - 主题配置
+   ======================= */
+:root {
+  /* 圣诞节主题配色 */
+  --theme-primary: #D42426;      /* 圣诞红 */
+  --theme-primary-hover: #B0191B;
+  --theme-primary-active: #961214;
+  --theme-secondary: #146B3A;    /* 松林绿 */
+  --theme-secondary-surface: #E3F0E6;
+  --theme-accent: #F8B229;       /* 星光金 */
+  --theme-accent-glow: rgba(248, 178, 41, 0.4);
+  
+  /* 背景色 */
+  --bg-page: #FDFBF7;            /* 暖白/蛋壳色 */
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-upload: #F7FAFC;
+  --bg-upload-hover: #E3F0E6;
+  
+  /* 文字色 */
+  --text-primary: #2D3748;
+  --text-secondary: #718096;
+  --text-white: #FFFFFF;
+  
+  /* 功能色 */
+  --color-success: #38A169;
+  --color-error: #E53E3E;
+  --color-border: #CBD5E0;
+  
+  /* 字体 */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Nunito', sans-serif;
+  
+  /* 空间 */
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 64px;
+  
+  /* 圆角 */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 24px;
+  
+  /* 阴影 */
+  --shadow-card: 0 20px 40px -12px rgba(20, 107, 58, 0.15);
+  --shadow-button: 0 8px 16px rgba(212, 36, 38, 0.3);
+  --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* 动画时长 */
+  --duration-fast: 200ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/* =======================
+   基础样式重置
+   ======================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* =======================
+   雪花背景动画
+   ======================= */
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  color: rgba(212, 36, 38, 0.3);
+  font-size: 1em;
+  animation: fall linear infinite;
+  user-select: none;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateX(0px); }
+  50% { transform: translateX(30px); }
+}
+
+/* =======================
+   页面装饰元素
+   ======================= */
+.decorations {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.christmas-tree {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  opacity: 0.6;
+  animation: sway 6s ease-in-out infinite;
+}
+
+.hanging-ornament {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  animation: sway 4s ease-in-out infinite reverse;
+}
+
+/* =======================
+   主容器和卡片
+   ======================= */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.main-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  border: 2px solid var(--theme-accent);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  max-width: 600px;
+  width: 100%;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  animation: fadeInUp var(--duration-slow) ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 卡片装饰蝴蝶结 */
+.main-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 32px;
+  background: var(--theme-primary);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  z-index: 1;
+}
+
+.main-card::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  background: var(--theme-accent);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+/* =======================
+   标题区域
+   ======================= */
+.title-section {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 800;
+  color: var(--theme-primary);
+  margin-bottom: var(--space-sm);
+  line-height: 1.1;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* =======================
+   文件上传区域
+   ======================= */
+.upload-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--duration-normal) ease;
+  background: var(--bg-upload);
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area:hover {
+  border-color: var(--theme-secondary);
+  background: var(--bg-upload-hover);
+  transform: translateY(-2px);
+}
+
+.upload-area.dragover {
+  border-color: var(--theme-primary);
+  background: rgba(212, 36, 38, 0.05);
+  transform: scale(1.02);
+}
+
+.upload-area.success {
+  border-color: var(--color-success);
+  background: rgba(56, 161, 105, 0.1);
+}
+
+.upload-content {
+  pointer-events: none;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: var(--space-sm);
+}
+
+.upload-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.upload-hint {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.file-info {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background: rgba(56, 161, 105, 0.1);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-success);
+}
+
+.file-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.file-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.participant-count {
+  background: var(--color-success);
+  color: white;
+  padding: 4px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =======================
+   设置区域
+   ======================= */
+.settings-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.input-group label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 16px;
+}
+
+.input-group input {
+  padding: var(--space-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-family: var(--font-body);
+  transition: all var(--duration-normal) ease;
+  background: white;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--theme-primary);
+  box-shadow: 0 0 0 3px rgba(212, 36, 38, 0.1);
+}
+
+.input-group input:invalid {
+  border-color: var(--color-error);
+}
+
+/* =======================
+   抽奖按钮
+   ======================= */
+.action-section {
+  margin-bottom: var(--space-2xl);
+}
+
+.draw-button {
+  width: 100%;
+  height: 64px;
+  background: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-primary-hover) 100%);
+  color: var(--text-white);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all var(--duration-normal) ease;
+  box-shadow: var(--shadow-button);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.draw-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 20px rgba(212, 36, 38, 0.4);
+}
+
+.draw-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.draw-button:disabled {
+  background: #CBD5E0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 按钮闪光效果 */
+.draw-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.draw-button:hover::before {
+  left: 100%;
+}
+
+/* 加载动画 */
+.button-loading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* =======================
+   结果展示区域
+   ======================= */
+.result-section {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 2px solid var(--theme-accent);
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.result-header h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  color: var(--theme-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.winners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-md);
+  margin-bottom: var(--space-2xl);
+}
+
+.winner-card {
+  background: white;
+  border: 2px solid var(--theme-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: center;
+  position: relative;
+  animation: winnerAppear var(--duration-slow) ease-out;
+  box-shadow: 0 8px 16px rgba(248, 178, 41, 0.2);
+}
+
+@keyframes winnerAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotateY(180deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.winner-card::before {
+  content: '🎉';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 24px;
+  background: var(--theme-accent);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.winner-name {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--theme-primary);
+  margin-bottom: var(--space-xs);
+}
+
+.winner-number {
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.result-actions {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.again-button, .reset-button {
+  padding: var(--space-md) var(--space-lg);
+  border: 2px solid var(--theme-primary);
+  background: white;
+  color: var(--theme-primary);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-normal) ease;
+}
+
+.again-button:hover {
+  background: var(--theme-primary);
+  color: white;
+}
+
+.reset-button:hover {
+  background: var(--color-error);
+  border-color: var(--color-error);
+  color: white;
+}
+
+/* =======================
+   庆祝动画
+   ======================= */
+.celebration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--theme-primary);
+  animation: confettiFall var(--duration-slow) ease-out forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+/* =======================
+   主题切换器
+   ======================= */
+.theme-switcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.theme-btn {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-border);
+  background: white;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all var(--duration-normal) ease;
+}
+
+.theme-btn:hover {
+  border-color: var(--theme-primary);
+  color: var(--theme-primary);
+}
+
+/* =======================
+   响应式设计
+   ======================= */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md);
+  }
+  
+  .main-card {
+    padding: var(--space-lg);
+  }
+  
+  .main-title {
+    font-size: 28px;
+  }
+  
+  .winners-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .christmas-tree, .hanging-ornament {
+    display: none;
+  }
+  
+  .theme-switcher {
+    bottom: 10px;
+    right: 10px;
+    padding: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .main-card {
+    padding: var(--space-md);
+  }
+  
+  .draw-button {
+    height: 56px;
+    font-size: 18px;
+  }
+  
+  .file-details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* =======================
+   其他主题配色
+   ======================= */
+
+/* 新年主题 */
+[data-theme="newyear"] {
+  --theme-primary: #C41E3A;
+  --theme-primary-hover: #A01729;
+  --theme-secondary: #FFD700;
+  --theme-accent: #FF6B35;
+  --theme-secondary-surface: #FFF8E7;
+}
+
+/* 春节主题 */
+[data-theme="spring"] {
+  --theme-primary: #DC2626;
+  --theme-primary-hover: #B91C1C;
+  --theme-secondary: #059669;
+  --theme-accent: #F59E0B;
+  --theme-secondary-surface: #ECFDF5;
+}
+
+/* 万圣节主题 */
+[data-theme="halloween"] {
+  --theme-primary: #EA580C;
+  --theme-primary-hover: #C2410C;
+  --theme-secondary: #7C2D12;
+  --theme-accent: #FBBF24;
+  --theme-secondary-surface: #FEF3C7;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎄 节日抽奖活动</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;800&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 雪花背景 -->
+    <div class="snow-container" id="snowContainer"></div>
+    
+    <!-- 页面装饰 -->
+    <div class="decorations">
+        <div class="christmas-tree">
+            <svg viewBox="0 0 200 300" width="120" height="180">
+                <polygon points="100,20 140,80 60,80" fill="#146B3A"/>
+                <polygon points="100,60 160,130 40,130" fill="#146B3A"/>
+                <polygon points="100,110 180,190 20,190" fill="#146B3A"/>
+                <rect x="95" y="190" width="10" height="40" fill="#8B4513"/>
+                <circle cx="100" cy="20" r="8" fill="#F8B229"/>
+                <circle cx="120" cy="70" r="6" fill="#F8B229"/>
+                <circle cx="80" cy="70" r="6" fill="#F8B229"/>
+                <circle cx="140" cy="120" r="6" fill="#F8B229"/>
+                <circle cx="60" cy="120" r="6" fill="#F8B229"/>
+                <circle cx="160" cy="180" r="6" fill="#F8B229"/>
+                <circle cx="40" cy="180" r="6" fill="#F8B229"/>
+                <circle cx="100" cy="110" r="4" fill="#D42426"/>
+                <circle cx="100" cy="150" r="4" fill="#D42426"/>
+            </svg>
+        </div>
+        <div class="hanging-ornament">
+            <svg viewBox="0 0 60 80" width="60" height="80">
+                <line x1="30" y1="0" x2="30" y2="15" stroke="#8B4513" stroke-width="2"/>
+                <circle cx="30" cy="40" r="20" fill="#D42426"/>
+                <circle cx="30" cy="35" r="15" fill="#E53E3E"/>
+                <path d="M20 25 Q30 20 40 25" fill="none" stroke="#F8B229" stroke-width="3"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- 主容器 -->
+    <div class="container">
+        <div class="main-card">
+            <!-- 标题 -->
+            <div class="title-section">
+                <h1 class="main-title">🎄 节日抽奖活动 🎁</h1>
+                <p class="subtitle">让幸运雪花带走您的节日惊喜</p>
+            </div>
+
+            <!-- 文件上传区域 -->
+            <div class="upload-section">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <div class="upload-icon">📊</div>
+                        <p class="upload-text">拖拽Excel文件到此处或点击上传</p>
+                        <p class="upload-hint">支持 .xls 和 .xlsx 格式</p>
+                    </div>
+                    <input type="file" id="fileInput" accept=".xls,.xlsx" style="display: none;">
+                </div>
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <div class="file-details">
+                        <span class="file-name" id="fileName"></span>
+                        <span class="participant-count" id="participantCount"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 抽奖设置 -->
+            <div class="settings-section">
+                <div class="input-group">
+                    <label for="winnerCount">中奖人数</label>
+                    <input type="number" id="winnerCount" min="1" value="1" placeholder="请输入中奖人数">
+                </div>
+            </div>
+
+            <!-- 抽奖按钮 -->
+            <div class="action-section">
+                <button class="draw-button" id="drawButton" disabled>
+                    <span class="button-text">开始抽奖 🎁</span>
+                    <div class="button-loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <span>正在清洗烟囱...</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- 结果展示 -->
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-header">
+                    <h2>🎉 恭喜以下幸运儿 🎉</h2>
+                </div>
+                <div class="winners-grid" id="winnersGrid">
+                    <!-- 中奖者将在这里显示 -->
+                </div>
+                <div class="result-actions">
+                    <button class="again-button" id="againButton">再次抽奖</button>
+                    <button class="reset-button" id="resetButton">重新开始</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 庆祝动画容器 -->
+    <div class="celebration" id="celebration"></div>
+
+    <!-- 主题切换器（管理员功能） -->
+    <div class="theme-switcher" id="themeSwitcher" style="display: none;">
+        <button class="theme-btn" data-theme="christmas">🎄 圣诞</button>
+        <button class="theme-btn" data-theme="newyear">🎊 新年</button>
+        <button class="theme-btn" data-theme="spring">🧧 春节</button>
+        <button class="theme-btn" data-theme="halloween">🎃 万圣</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
